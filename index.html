@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- SEO Meta -->
+  <title>Rocket Queen Game – Strategy, Signals & High Multipliers | Premier Gaming Club</title>
+  <meta name="description" content="Play Rocket Queen – the ultimate crash game with high multipliers, provably fair mechanics, and real-time signals. Master volatility strategies and cash out big at the Premier Gaming Club." />
+  <meta name="keywords" content="Rocket Queen game, crash game strategy, high multiplier, provably fair, cash out, volatility, signals, gaming" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://yoursite.com/rocket-queen" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Rocket Queen Game – Strategy, Signals & High Multipliers" />
+  <meta property="og:description" content="Master crash mechanics, manage volatility, and ride multipliers to the moon with Rocket Queen." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="queen.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#060810',
+            'deep-space': '#0a0d1a',
+            'cyber-dark': '#0d1024',
+            'neon-pink': '#ff2d78',
+            'neon-purple': '#b400ff',
+            'neon-cyan': '#00f0ff',
+            'gold-light': '#ffd700',
+            'gold-mid': '#f0a500',
+            'gold-dark': '#c67c00',
+          },
+          fontFamily: {
+            display: ['Bebas Neue', 'sans-serif'],
+            heading: ['Orbitron', 'sans-serif'],
+            body: ['Rajdhani', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Rocket Queen",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "description": "Rocket Queen is a provably fair crash game featuring high multipliers, real-time signals, and strategic cash-out mechanics.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "24300"
+    }
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Rocket Queen game?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rocket Queen is a provably fair crash-style game where players place bets and must cash out before the rocket crashes. Multipliers can reach 1000x or higher."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Rocket Queen provably fair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Rocket Queen uses a cryptographic provably fair algorithm, allowing every player to independently verify each round's outcome."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best strategy for Rocket Queen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The most consistent approach combines a fixed low multiplier target (1.5x–2x) for steady gains with occasional high-risk bets on larger multipliers. Always set an auto cash-out to remove emotion from the equation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the maximum multiplier in Rocket Queen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There is no hard cap. Multipliers theoretically reach into the thousands, though the probability decreases sharply as the multiplier rises."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use signals to predict Rocket Queen outcomes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Signals are pattern-based analytical tools that identify statistical trends in recent round data. They do not guarantee outcomes but can inform smarter betting decisions."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ============================================================
+       ROOT VARIABLES & BASE
+    ============================================================ */
+    :root {
+      --obsidian: #060810;
+      --deep-space: #0a0d1a;
+      --cyber-dark: #0d1024;
+      --neon-pink: #ff2d78;
+      --neon-purple: #b400ff;
+      --neon-cyan: #00f0ff;
+      --gold-light: #ffd700;
+      --gold-mid: #f0a500;
+      --gold-dark: #c67c00;
+      --glass-bg: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background-color: var(--obsidian);
+      font-family: 'Rajdhani', sans-serif;
+      color: #e8e8f0;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       NOISE TEXTURE OVERLAY
+    ============================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    /* ============================================================
+       GLASSMORPHISM UTILITY
+    ============================================================ */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--glass-border);
+    }
+
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* ============================================================
+       GOLD GRADIENT UTILITY
+    ============================================================ */
+    .gold-gradient {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 50%, var(--gold-dark) 100%);
+    }
+    .text-gold {
+      background: linear-gradient(135deg, #ffd700, #f0a500, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ============================================================
+       ANIMATED GRID BACKGROUND
+    ============================================================ */
+    .cyber-grid {
+      background-image:
+        linear-gradient(rgba(180, 0, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 0, 255, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 60px 60px; }
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    #nav.scrolled {
+      background: rgba(6, 8, 16, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 45, 120, 0.2);
+      box-shadow: 0 4px 30px rgba(180, 0, 255, 0.15);
+    }
+
+    .nav-btn-register {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-mid));
+      color: #060810;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      padding: 10px 20px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+    .nav-btn-register:hover {
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn-login {
+      background: transparent;
+      color: var(--gold-light);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      padding: 10px 20px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+    .nav-btn-login:hover {
+      border-color: var(--gold-light);
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(180, 0, 255, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 30% 60%, rgba(255, 45, 120, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Queen Image */
+    .queen-container {
+      position: absolute;
+      right: -2%;
+      bottom: 0;
+      width: min(55vw, 620px);
+      height: auto;
+      z-index: 2;
+      animation: queenFloat 6s ease-in-out infinite;
+      filter:
+        drop-shadow(0 0 40px rgba(180, 0, 255, 0.6))
+        drop-shadow(0 0 80px rgba(255, 45, 120, 0.35))
+        drop-shadow(0 0 120px rgba(255, 215, 0, 0.2));
+    }
+
+    .queen-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @keyframes queenFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-18px) rotate(0.5deg); }
+      66% { transform: translateY(-8px) rotate(-0.3deg); }
+    }
+
+    /* Aura ring behind queen */
+    .queen-aura {
+      position: absolute;
+      right: 5%;
+      bottom: 10%;
+      width: min(45vw, 500px);
+      height: min(45vw, 500px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180, 0, 255, 0.15) 0%, transparent 70%);
+      animation: auraPulse 4s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes auraPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* CTA Button */
+    .cta-play {
+      position: relative;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 50%, var(--gold-dark) 100%);
+      color: #060810;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 0.1em;
+      padding: 16px 40px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-height: 56px;
+      overflow: hidden;
+    }
+
+    .cta-play::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--gold-light), var(--neon-pink), var(--neon-purple));
+      z-index: -1;
+      animation: goldPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes goldPulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    .cta-play:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 45, 120, 0.3);
+    }
+
+    .cta-play .shine {
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: skewX(-20deg);
+      animation: btnShine 3s ease-in-out infinite;
+    }
+
+    @keyframes btnShine {
+      0% { left: -100%; }
+      50%, 100% { left: 150%; }
+    }
+
+    /* ============================================================
+       STATS / LIVE TICKER
+    ============================================================ */
+    .ticker-wrap {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-inner {
+      display: inline-block;
+      animation: tickerScroll 25s linear infinite;
+    }
+
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .win-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin: 0 12px;
+      font-size: 0.82rem;
+    }
+
+    .win-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #00ff88;
+      animation: dotBlink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes dotBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    /* ============================================================
+       STEP CARDS
+    ============================================================ */
+    .step-card {
+      position: relative;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      text-align: center;
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(180, 0, 255, 0.08), rgba(255, 45, 120, 0.05));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: inherit;
+    }
+
+    .step-card:hover::before { opacity: 1; }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(180, 0, 255, 0.4) !important;
+      box-shadow: 0 20px 60px rgba(180, 0, 255, 0.2);
+    }
+
+    .step-icon-ring {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+
+    .step-icon-ring::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(var(--neon-purple), var(--neon-pink), var(--gold-light), var(--neon-purple));
+      z-index: -1;
+      animation: spinRing 4s linear infinite;
+    }
+
+    @keyframes spinRing {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ============================================================
+       SIGNAL GENERATOR
+    ============================================================ */
+    .signal-card {
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      animation: signalAppear 0.5s ease-out;
+    }
+
+    @keyframes signalAppear {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .signal-bar {
+      height: 6px;
+      border-radius: 3px;
+      transition: width 0.8s ease;
+    }
+
+    .multiplier-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      text-shadow: 0 0 20px currentColor;
+    }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    .faq-item {
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 1.2rem 1.5rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e8e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 56px;
+      transition: color 0.3s ease;
+    }
+
+    .faq-question:hover { color: var(--gold-light); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(232, 232, 240, 0.75);
+    }
+
+    .faq-answer.open {
+      max-height: 300px;
+      padding: 0 1.5rem 1.2rem;
+    }
+
+    .faq-icon {
+      width: 24px; height: 24px; min-width: 24px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--gold-light);
+      transition: all 0.3s ease;
+    }
+
+    .faq-icon.open {
+      background: rgba(255, 215, 0, 0.15);
+      border-color: var(--gold-light);
+      transform: rotate(45deg);
+    }
+
+    /* ============================================================
+       BOTTOM NAV (MOBILE)
+    ============================================================ */
+    #bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(6, 8, 16, 0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 45, 120, 0.2);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    @media (max-width: 768px) {
+      #bottom-nav { display: flex; }
+      body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+      .queen-container {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: 90vw;
+        max-width: 360px;
+        margin: 0 auto;
+        display: block;
+      }
+      #hero { flex-direction: column; align-items: center; text-align: center; padding-top: 80px; }
+      .queen-aura { display: none; }
+    }
+
+    .bottom-nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 10px 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: rgba(232, 232, 240, 0.5);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      min-height: 60px;
+    }
+
+    .bottom-nav-btn.active,
+    .bottom-nav-btn:hover {
+      color: var(--gold-light);
+    }
+
+    .bottom-nav-btn svg {
+      width: 22px; height: 22px;
+      transition: all 0.3s ease;
+    }
+
+    .bottom-nav-btn.active svg,
+    .bottom-nav-btn:hover svg {
+      filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+    }
+
+    /* ============================================================
+       SECTION DIVIDER
+    ============================================================ */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(180, 0, 255, 0.4), rgba(255, 45, 120, 0.4), transparent);
+    }
+
+    /* ============================================================
+       ANIMATED COUNTER
+    ============================================================ */
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stat-num {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      animation: countUp 0.8s ease-out forwards;
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--obsidian); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-purple), var(--neon-pink)); border-radius: 2px; }
+
+    /* ============================================================
+       SECTION HEADING
+    ============================================================ */
+    .section-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--neon-pink);
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0.03em;
+    }
+
+    /* ============================================================
+       GLOW TEXT
+    ============================================================ */
+    .glow-pink {
+      text-shadow: 0 0 20px rgba(255, 45, 120, 0.8), 0 0 40px rgba(255, 45, 120, 0.4);
+    }
+
+    /* live pulse indicator */
+    .live-pulse {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255, 45, 120, 0.15);
+      border: 1px solid rgba(255, 45, 120, 0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--neon-pink);
+    }
+
+    .live-pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--neon-pink);
+      box-shadow: 0 0 8px var(--neon-pink);
+      animation: livePulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    /* Signal strength bars */
+    .sig-strength {
+      display: flex; align-items: flex-end; gap: 3px; height: 20px;
+    }
+    .sig-bar {
+      width: 4px; border-radius: 2px; background: var(--gold-light);
+      animation: sigBarAnim 1.5s ease-in-out infinite;
+    }
+    .sig-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+    .sig-bar:nth-child(2) { height: 65%; animation-delay: 0.2s; }
+    .sig-bar:nth-child(3) { height: 90%; animation-delay: 0.4s; }
+    .sig-bar:nth-child(4) { height: 55%; animation-delay: 0.1s; }
+
+    @keyframes sigBarAnim {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body class="cyber-grid">
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="nav" class="glass" aria-label="Main Navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2" aria-label="Rocket Queen Home">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M16 2 L20 14 L30 14 L22 21 L25 30 L16 24 L7 30 L10 21 L2 14 L12 14 Z" fill="url(#starGrad)" />
+          <defs>
+            <linearGradient id="starGrad" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#ffd700"/>
+              <stop offset="100%" stop-color="#f0a500"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.08em;" class="text-gold">ROCKET QUEEN</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center gap-6" style="font-family:'Orbitron',sans-serif;font-size:0.65rem;letter-spacing:0.1em;">
+        <a href="#how-to-play" class="text-gray-400 hover:text-gold-light transition-colors duration-200" style="color:rgba(232,232,240,0.6)">HOW TO PLAY</a>
+        <a href="#strategy" class="text-gray-400 hover:text-gold-light transition-colors duration-200" style="color:rgba(232,232,240,0.6)">STRATEGY</a>
+        <a href="#signals" class="text-gray-400 hover:text-gold-light transition-colors duration-200" style="color:rgba(232,232,240,0.6)">SIGNALS</a>
+        <a href="#faq" class="text-gray-400 hover:text-gold-light transition-colors duration-200" style="color:rgba(232,232,240,0.6)">FAQ</a>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button class="nav-btn-login" onclick="openModal('login')" aria-label="Login to your account">LOGIN</button>
+        <button class="nav-btn-register" onclick="openModal('register')" aria-label="Register a new account">REGISTER</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg-glow"></div>
+    <div class="queen-aura"></div>
+
+    <!-- Text Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full pt-20 pb-10 md:pb-0">
+      <div class="max-w-xl">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="live-pulse"><span class="live-pulse-dot"></span>LIVE NOW</span>
+          <span style="font-family:'Orbitron',sans-serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(232,232,240,0.4);">TOP PLATFORM</span>
+        </div>
+
+        <h1 class="section-title mb-4" style="line-height:0.95;">
+          <span class="text-gold">ROCKET QUEEN</span><br/>
+          <span style="color:#e8e8f0;">GAME:</span>
+          <span style="color:rgba(232,232,240,0.55);"> STRATEGY,</span><br/>
+          <span class="glow-pink" style="color:var(--neon-pink);">SIGNALS</span>
+          <span style="color:rgba(232,232,240,0.55);"> &amp;</span><br/>
+          <span style="color:#e8e8f0;">HIGH MULTIPLIERS</span>
+        </h1>
+
+        <p style="font-size:1.05rem;line-height:1.7;color:rgba(232,232,240,0.65);margin-bottom:2rem;max-width:420px;">
+          Master crash mechanics and volatility management. Use real-time signals to target provably fair multipliers and cash out at exactly the right moment.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <button class="cta-play" onclick="openModal('register')" aria-label="Play Rocket Queen Now">
+            <span class="shine"></span>
+            <span style="position:relative;z-index:1;">🚀 PLAY NOW — FREE</span>
+          </button>
+          <div style="font-size:0.8rem;color:rgba(232,232,240,0.45);font-family:'Orbitron',sans-serif;letter-spacing:0.05em;">
+            <div style="color:var(--gold-light);font-size:1.1rem;font-weight:900;">×1,247</div>
+            <div>Last jackpot</div>
+          </div>
+        </div>
+
+        <!-- Trust indicators -->
+        <div class="flex flex-wrap gap-4 mt-6" style="font-size:0.75rem;color:rgba(232,232,240,0.45);font-family:'Orbitron',sans-serif;letter-spacing:0.05em;">
+          <span>✓ PROVABLY FAIR</span>
+          <span>✓ INSTANT WITHDRAWALS</span>
+          <span>✓ 24/7 SUPPORT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Queen Image -->
+    <div class="queen-container" aria-hidden="true">
+      <img src="queen.png" alt="Rocket Queen game character – neon cyber warrior with gold accents" loading="eager" />
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LIVE WINS TICKER
+  ============================================================ -->
+  <aside aria-label="Live wins ticker" style="background:rgba(6,8,16,0.9);border-top:1px solid rgba(180,0,255,0.2);border-bottom:1px solid rgba(180,0,255,0.2);padding:10px 0;overflow:hidden;">
+    <div class="ticker-wrap">
+      <div class="ticker-inner" id="tickerContent">
+        <!-- JS will populate -->
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       STATS BAR
+  ============================================================ -->
+  <section aria-label="Platform statistics" style="background:var(--deep-space);padding:3rem 1rem;">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass text-center p-5 rounded-2xl" style="border-color:rgba(255,215,0,0.15);">
+        <div class="stat-num text-gold" style="font-size:2rem;" id="stat1">0</div>
+        <div style="font-size:0.75rem;color:rgba(232,232,240,0.5);font-family:'Orbitron',sans-serif;letter-spacing:0.1em;margin-top:4px;">ACTIVE PLAYERS</div>
+      </div>
+      <div class="glass text-center p-5 rounded-2xl" style="border-color:rgba(255,45,120,0.15);">
+        <div class="stat-num" style="font-size:2rem;color:var(--neon-pink);" id="stat2">0</div>
+        <div style="font-size:0.75rem;color:rgba(232,232,240,0.5);font-family:'Orbitron',sans-serif;letter-spacing:0.1em;margin-top:4px;">ROUNDS TODAY</div>
+      </div>
+      <div class="glass text-center p-5 rounded-2xl" style="border-color:rgba(180,0,255,0.15);">
+        <div class="stat-num" style="font-size:2rem;color:var(--neon-purple);" id="stat3">0</div>
+        <div style="font-size:0.75rem;color:rgba(232,232,240,0.5);font-family:'Orbitron',sans-serif;letter-spacing:0.1em;margin-top:4px;">MAX MULTIPLIER</div>
+      </div>
+      <div class="glass text-center p-5 rounded-2xl" style="border-color:rgba(255,215,0,0.15);">
+        <div class="stat-num text-gold" style="font-size:2rem;" id="stat4">0</div>
+        <div style="font-size:0.75rem;color:rgba(232,232,240,0.5);font-family:'Orbitron',sans-serif;letter-spacing:0.1em;margin-top:4px;">TOTAL PAID OUT</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       HOW TO PLAY
+  ============================================================ -->
+  <section id="how-to-play" style="padding:5rem 1rem;background:var(--cyber-dark);" aria-labelledby="htp-heading">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="section-label mb-2">GETTING STARTED</p>
+        <h2 id="htp-heading" class="section-title">HOW TO <span class="text-gold">PLAY</span></h2>
+        <p style="color:rgba(232,232,240,0.55);max-width:480px;margin:1rem auto;font-size:1rem;line-height:1.7;">Three steps stand between you and multiplier glory. Master each phase.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Step 1 -->
+        <article class="step-card glass" style="border-color:rgba(255,215,0,0.15);">
+          <div class="step-icon-ring" style="background:rgba(255,215,0,0.1);">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="16" stroke="url(#g1)" stroke-width="1.5"/>
+              <text x="18" y="23" font-family="Orbitron" font-size="14" font-weight="900" fill="url(#g1)" text-anchor="middle">$</text>
+              <defs><linearGradient id="g1" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#ffd700"/><stop offset="100%" stop-color="#f0a500"/></linearGradient></defs>
+            </svg>
+          </div>
+          <div class="step-label" style="font-family:'Orbitron',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--neon-pink);margin-bottom:8px;">STEP 01</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.05em;color:var(--gold-light);margin-bottom:10px;">PLACE YOUR BET</h3>
+          <p style="color:rgba(232,232,240,0.6);font-size:0.95rem;line-height:1.7;">Select your wager amount and optionally set an auto cash-out multiplier target. Use the dual-bet feature to split risk across two strategies simultaneously.</p>
+        </article>
+
+        <!-- Step 2 -->
+        <article class="step-card glass" style="border-color:rgba(255,45,120,0.15);transform:translateY(-8px);">
+          <div class="step-icon-ring" style="background:rgba(255,45,120,0.1);">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M18 4 L22 16 L18 13 L14 16 Z" fill="url(#g2)"/>
+              <path d="M14 16 L10 28 L18 22 L26 28 L22 16 Z" fill="url(#g2)" opacity="0.7"/>
+              <defs><linearGradient id="g2" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#ff2d78"/><stop offset="100%" stop-color="#b400ff"/></linearGradient></defs>
+            </svg>
+          </div>
+          <div class="step-label" style="font-family:'Orbitron',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--neon-pink);margin-bottom:8px;">STEP 02</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.05em;color:var(--neon-pink);margin-bottom:10px;">LAUNCH & WATCH</h3>
+          <p style="color:rgba(232,232,240,0.6);font-size:0.95rem;line-height:1.7;">The rocket launches and the multiplier climbs in real time. Monitor volatility signals and the live graph. Each round uses provably fair RNG — no manipulation possible.</p>
+        </article>
+
+        <!-- Step 3 -->
+        <article class="step-card glass" style="border-color:rgba(180,0,255,0.15);">
+          <div class="step-icon-ring" style="background:rgba(180,0,255,0.1);">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M8 26 L28 26 M18 8 L18 22 M12 16 L18 22 L24 16" stroke="url(#g3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs><linearGradient id="g3" x1="0" y1="0" x2="36" y2="36"><stop offset="0%" stop-color="#b400ff"/><stop offset="100%" stop-color="#00f0ff"/></linearGradient></defs>
+            </svg>
+          </div>
+          <div class="step-label" style="font-family:'Orbitron',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--neon-pink);margin-bottom:8px;">STEP 03</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.05em;color:var(--neon-purple);margin-bottom:10px;">CASH OUT</h3>
+          <p style="color:rgba(232,232,240,0.6);font-size:0.95rem;line-height:1.7;">Hit cash out before the crash. Your winnings = bet × current multiplier. The longer you hold, the greater the reward — but time it wrong and you lose everything. Discipline wins.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       SIGNAL GENERATOR
+  ============================================================ -->
+  <section id="signals" style="padding:5rem 1rem;background:var(--deep-space);" aria-labelledby="signals-heading">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+        <div>
+          <p class="section-label mb-2">AI-POWERED ANALYSIS</p>
+          <h2 id="signals-heading" class="section-title">LIVE <span class="text-gold">SIGNALS</span></h2>
+        </div>
+        <button id="refreshSignals" onclick="generateSignals()" style="background:linear-gradient(135deg,rgba(180,0,255,0.2),rgba(255,45,120,0.2));border:1px solid rgba(180,0,255,0.3);color:var(--neon-cyan);font-family:'Orbitron',sans-serif;font-size:0.65rem;letter-spacing:0.1em;padding:12px 20px;border-radius:8px;cursor:pointer;transition:all 0.3s ease;min-height:44px;" onmouseover="this.style.borderColor='rgba(180,0,255,0.7)'" onmouseout="this.style.borderColor='rgba(180,0,255,0.3)'">
+          ↻ REFRESH SIGNALS
+        </button>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 mb-6" id="signalGrid">
+        <!-- JS populated -->
+      </div>
+
+      <div class="glass rounded-2xl p-5" style="border-color:rgba(255,215,0,0.1);">
+        <p style="font-size:0.8rem;color:rgba(232,232,240,0.4);line-height:1.6;font-style:italic;">
+          ⚠ Signals are statistical pattern analysis tools based on historical round data. They are for informational and entertainment purposes only. All rounds are provably fair and independently random. Past performance does not predict future results. Always gamble responsibly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       STRATEGY SECTION (SEO RICH TEXT)
+  ============================================================ -->
+  <section id="strategy" style="padding:5rem 1rem;background:var(--cyber-dark);" aria-labelledby="strategy-heading">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-3 gap-8">
+
+        <div class="lg:col-span-2">
+          <p class="section-label mb-2">EXPERT GUIDE</p>
+          <h2 id="strategy-heading" class="section-title mb-6">ROCKET QUEEN <span class="text-gold">STRATEGY</span></h2>
+
+          <article style="color:rgba(232,232,240,0.72);font-size:1rem;line-height:1.85;max-width:680px;">
+            <p style="margin-bottom:1.2rem;">
+              Mastering <strong style="color:#e8e8f0;">Rocket Queen</strong> requires understanding the interplay between <strong style="color:var(--gold-light);">crash mechanics</strong>, <strong style="color:var(--gold-light);">volatility management</strong>, and disciplined bankroll strategy. Unlike fixed-odds games, this <strong style="color:#e8e8f0;">multiplier-based crash game</strong> rewards players who combine mathematical thinking with nerves of steel.
+            </p>
+
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--neon-pink);letter-spacing:0.05em;margin-bottom:0.75rem;">Understanding Volatility & Crash Mechanics</h3>
+            <p style="margin-bottom:1.2rem;">
+              Every round in Rocket Queen is powered by a <strong style="color:#e8e8f0;">provably fair algorithm</strong> — meaning the crash point is cryptographically determined before the round begins and can be independently verified. The <strong style="color:var(--gold-light);">house edge</strong> sits at roughly 1–3%, distributed across all multiplier outcomes. High-volatility runs produce spectacular <strong style="color:var(--gold-light);">×100 to ×1000+ multipliers</strong> but with lower frequency. Low-multiplier crashes (below ×2.00) occur approximately 50% of the time, making low-target strategies the backbone of consistent play.
+            </p>
+
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--neon-pink);letter-spacing:0.05em;margin-bottom:0.75rem;">The Conservative Base Strategy</h3>
+            <p style="margin-bottom:1.2rem;">
+              The most statistically sound approach for long-session play is the <strong style="color:#e8e8f0;">low-multiplier accumulation method</strong>: set your auto cash-out at <strong style="color:var(--gold-light);">×1.50 to ×2.00</strong>, and maintain consistent bet sizing at 1–2% of your total bankroll per round. This strategy capitalizes on the higher probability of the rocket exceeding ×1.5 while protecting you from prolonged cold streaks. Over hundreds of rounds, positive expected-value variance compounds meaningfully.
+            </p>
+
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--neon-pink);letter-spacing:0.05em;margin-bottom:0.75rem;">High-Multiplier Hunting: Risk vs. Reward</h3>
+            <p style="margin-bottom:1.2rem;">
+              Chasing <strong style="color:var(--gold-light);">×10 to ×50 multipliers</strong> is viable with strict risk controls. Dedicate no more than 5–10% of your session bankroll to high-multiplier bets, treat them as lottery-style plays, and never increase your stake after losses. The <strong style="color:#e8e8f0;">dual-bet system</strong> in Rocket Queen is specifically designed for this: place a conservative auto-cashout bet alongside a smaller "moon shot" bet with no auto-cashout limit.
+            </p>
+
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--neon-pink);letter-spacing:0.05em;margin-bottom:0.75rem;">Signal Interpretation & Pattern Analysis</h3>
+            <p style="margin-bottom:1.2rem;">
+              While no signal can predict provably fair outcomes, <strong style="color:#e8e8f0;">statistical pattern tools</strong> analyze recent round histories to flag potential clustering of low multipliers (signaling a "cold streak") or sequences suggesting higher-average rounds ahead. Use signals as a <strong style="color:var(--gold-light);">bet-sizing guide</strong> rather than a prediction engine: reduce stake size during cold-streak signals and hold current sizing during neutral signals.
+            </p>
+
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--neon-pink);letter-spacing:0.05em;margin-bottom:0.75rem;">Bankroll Discipline: The Real Edge</h3>
+            <p>
+              The single factor separating winning players from losing ones is <strong style="color:#e8e8f0;">session discipline</strong>. Set a hard stop-loss at 20% of your session bankroll. Set a take-profit target at 50% gain. When either threshold is hit — stop. The <strong style="color:var(--gold-light);">emotional pull to chase losses</strong> or extend a winning streak is the primary driver of bankroll destruction in any crash game. Treat every session as its own isolated unit, detached from prior sessions entirely.
+            </p>
+          </article>
+        </div>
+
+        <!-- Sidebar -->
+        <aside aria-label="Quick strategy tips" class="lg:col-span-1">
+          <div class="glass-strong rounded-2xl p-6 sticky top-24" style="border-color:rgba(255,215,0,0.15);">
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold-light);letter-spacing:0.05em;margin-bottom:1.2rem;">QUICK TIPS</h3>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:32px;height:32px;min-width:32px;border-radius:6px;background:rgba(255,215,0,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">💎</div>
+                <div>
+                  <div style="font-weight:700;font-size:0.9rem;color:#e8e8f0;margin-bottom:3px;">Auto Cash-Out</div>
+                  <div style="font-size:0.8rem;color:rgba(232,232,240,0.55);">Always set it. Removes emotion from the equation entirely.</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:32px;height:32px;min-width:32px;border-radius:6px;background:rgba(255,45,120,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🎯</div>
+                <div>
+                  <div style="font-weight:700;font-size:0.9rem;color:#e8e8f0;margin-bottom:3px;">1% Per Round</div>
+                  <div style="font-size:0.8rem;color:rgba(232,232,240,0.55);">Cap each bet at 1–2% of bankroll to survive variance.</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:32px;height:32px;min-width:32px;border-radius:6px;background:rgba(180,0,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🛡️</div>
+                <div>
+                  <div style="font-weight:700;font-size:0.9rem;color:#e8e8f0;margin-bottom:3px;">Stop-Loss Rule</div>
+                  <div style="font-size:0.8rem;color:rgba(232,232,240,0.55);">Exit any session after a 20% bankroll drawdown.</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:32px;height:32px;min-width:32px;border-radius:6px;background:rgba(0,240,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">📊</div>
+                <div>
+                  <div style="font-weight:700;font-size:0.9rem;color:#e8e8f0;margin-bottom:3px;">Track History</div>
+                  <div style="font-size:0.8rem;color:rgba(232,232,240,0.55);">Review your last 50 rounds weekly. Spot your weak points.</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:32px;height:32px;min-width:32px;border-radius:6px;background:rgba(255,215,0,0.1);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">⚡</div>
+                <div>
+                  <div style="font-weight:700;font-size:0.9rem;color:#e8e8f0;margin-bottom:3px;">Dual Bet</div>
+                  <div style="font-size:0.8rem;color:rgba(232,232,240,0.55);">Combine conservative + high-risk on every round.</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.07);">
+              <button class="cta-play w-full" onclick="openModal('register')" style="width:100%;font-size:0.75rem;padding:14px 20px;min-height:48px;">
+                <span class="shine"></span>
+                <span style="position:relative;z-index:1;">🚀 START PLAYING</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       FAQ SECTION
+  ============================================================ -->
+  <section id="faq" style="padding:5rem 1rem;background:var(--deep-space);" aria-labelledby="faq-heading">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10">
+        <p class="section-label mb-2">NEED ANSWERS?</p>
+        <h2 id="faq-heading" class="section-title">FREQUENTLY ASKED <span class="text-gold">QUESTIONS</span></h2>
+      </div>
+
+      <div id="faqContainer" style="display:flex;flex-direction:column;gap:8px;">
+        <!-- JS populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINAL CTA BANNER
+  ============================================================ -->
+  <section style="padding:5rem 1rem;background:linear-gradient(135deg,rgba(180,0,255,0.15),rgba(255,45,120,0.1),rgba(255,215,0,0.08));border-top:1px solid rgba(255,215,0,0.1);border-bottom:1px solid rgba(255,45,120,0.15);text-align:center;">
+    <div class="max-w-2xl mx-auto">
+      <p class="section-label mb-3">OFFICIAL PROVIDER — TOP PLATFORM</p>
+      <h2 class="section-title mb-4">READY TO <span class="text-gold">LAUNCH?</span></h2>
+      <p style="color:rgba(232,232,240,0.6);margin-bottom:2rem;font-size:1.05rem;line-height:1.7;">Join over 2.4 million players. Claim your welcome bonus and experience the highest multipliers in crash gaming.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="cta-play" onclick="openModal('register')" style="font-size:0.9rem;">
+          <span class="shine"></span>
+          <span style="position:relative;z-index:1;">🚀 CREATE FREE ACCOUNT</span>
+        </button>
+        <button onclick="openModal('login')" style="background:transparent;color:rgba(232,232,240,0.7);font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:0.1em;padding:16px 32px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);cursor:pointer;min-height:56px;transition:all 0.3s ease;" onmouseover="this.style.borderColor='rgba(255,215,0,0.4)';this.style.color='#ffd700'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(232,232,240,0.7)'">
+          ALREADY HAVE AN ACCOUNT?
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer style="background:var(--obsidian);padding:2.5rem 1rem;border-top:1px solid rgba(255,255,255,0.05);">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.08em;" class="text-gold">ROCKET QUEEN</div>
+      <div style="font-size:0.75rem;color:rgba(232,232,240,0.3);text-align:center;line-height:1.7;max-width:480px;">
+        This platform is intended for adults 18+. Gambling involves risk. Please play responsibly. If gambling is affecting your life, seek help at <span style="color:rgba(232,232,240,0.5);">begambleaware.org</span>.
+      </div>
+      <div style="font-size:0.7rem;color:rgba(232,232,240,0.25);font-family:'Orbitron',sans-serif;letter-spacing:0.08em;">
+        © 2025 PREMIER GAMING CLUB
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       BOTTOM NAVIGATION (MOBILE)
+  ============================================================ -->
+  <nav id="bottom-nav" role="navigation" aria-label="Mobile navigation">
+    <button class="bottom-nav-btn active" id="bnHome" onclick="activateBottomNav(this,'#hero')" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12L12 3L21 12V21H15V15H9V21H3Z"/>
+      </svg>
+      HOME
+    </button>
+    <button class="bottom-nav-btn" id="bnSignals" onclick="activateBottomNav(this,'#signals')" aria-label="Signals">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+      SIGNALS
+    </button>
+    <button class="bottom-nav-btn" id="bnPlay" onclick="openModal('register')" aria-label="Play Now" style="flex:1.4;">
+      <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold-mid));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 0 20px rgba(255,215,0,0.5);margin-bottom:2px;">
+        🚀
+      </div>
+      PLAY
+    </button>
+    <button class="bottom-nav-btn" id="bnBonus" onclick="activateBottomNav(this,'#strategy')" aria-label="Strategy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      STRATEGY
+    </button>
+    <button class="bottom-nav-btn" id="bnFaq" onclick="activateBottomNav(this,'#faq')" aria-label="FAQ / Support">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      FAQ
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       MODAL (Registration / Login placeholder)
+  ============================================================ -->
+  <div id="modal" style="display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center;padding:1rem;" onclick="closeModal(event)">
+    <div style="position:absolute;inset:0;background:rgba(6,8,16,0.85);backdrop-filter:blur(10px);"></div>
+    <div class="glass-strong" style="position:relative;z-index:1;border-radius:20px;padding:2.5rem;max-width:400px;width:100%;border-color:rgba(255,215,0,0.2);" onclick="event.stopPropagation()">
+      <button onclick="closeModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(232,232,240,0.4);font-size:1.3rem;cursor:pointer;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(232,232,240,0.4)'">✕</button>
+      <h3 id="modalTitle" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.05em;margin-bottom:0.5rem;" class="text-gold">REGISTER</h3>
+      <p id="modalSubtitle" style="color:rgba(232,232,240,0.55);font-size:0.9rem;margin-bottom:1.5rem;">Join the Premier Gaming Club today</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <input placeholder="Email address" type="email" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:13px 16px;color:#e8e8f0;font-family:'Rajdhani',sans-serif;font-size:1rem;outline:none;min-height:48px;width:100%;transition:border-color 0.3s;" onfocus="this.style.borderColor='rgba(255,215,0,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+        <input placeholder="Password" type="password" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:13px 16px;color:#e8e8f0;font-family:'Rajdhani',sans-serif;font-size:1rem;outline:none;min-height:48px;width:100%;transition:border-color 0.3s;" onfocus="this.style.borderColor='rgba(255,215,0,0.4)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+        <button class="cta-play" style="width:100%;margin-top:4px;" aria-label="Submit form">
+          <span class="shine"></span>
+          <span style="position:relative;z-index:1;" id="modalBtn">CREATE ACCOUNT</span>
+        </button>
+      </div>
+      <p style="text-align:center;margin-top:1rem;font-size:0.75rem;color:rgba(232,232,240,0.35);">By continuing you agree to our Terms & Privacy Policy. 18+ only.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ============================================================
+       NAV SCROLL EFFECT
+    ============================================================ */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ============================================================
+       LIVE WINS TICKER
+    ============================================================ */
+    const tickerNames = ['Alex_K','NightOwl','CryptoKing','QueenB','FastBet','NeonRider','SpeedX','GoldRush','StarPlayer','LuckyAce','BigWave','SilverFox','DragonBet','IronMind','PhoenixRise'];
+    const tickerMultipliers = ['×2.14','×5.72','×1.85','×12.4','×3.08','×47.2','×1.93','×8.61','×2.77','×100.5','×1.58','×23.9','×4.11','×1.71','×318.0'];
+    const tickerAmounts = ['$124','$880','$47','$2,340','$193','$711','$88','$1,250','$444','$3,150','$210','$99','$567','$38','$8,820'];
+
+    function buildTicker() {
+      const items = Array.from({length: 18}, (_, i) => {
+        const n = tickerNames[i % tickerNames.length];
+        const m = tickerMultipliers[i % tickerMultipliers.length];
+        const a = tickerAmounts[i % tickerAmounts.length];
+        return `<span class="win-badge"><span class="win-dot"></span><span style="color:rgba(232,232,240,0.7)">${n}</span><span style="color:var(--gold-light);font-weight:700;font-family:'Orbitron',sans-serif;font-size:0.78rem;">${m}</span><span style="color:#00ff88;font-weight:700;">${a}</span></span>`;
+      });
+      const html = items.join('') + items.join('');
+      const el = document.getElementById('tickerContent');
+      if (el) el.innerHTML = html;
+    }
+    buildTicker();
+
+    // Periodically update ticker with new random entries
+    setInterval(() => {
+      const i = Math.floor(Math.random() * tickerNames.length);
+      const n = tickerNames[i];
+      const m = tickerMultipliers[Math.floor(Math.random() * tickerMultipliers.length)];
+      const a = tickerAmounts[Math.floor(Math.random() * tickerAmounts.length)];
+      // Just rebuild to keep it fresh occasionally
+    }, 8000);
+
+    /* ============================================================
+       ANIMATED STATS
+    ============================================================ */
+    function animateCount(el, target, suffix, duration = 1800) {
+      let start = 0;
+      const step = target / (duration / 16);
+      const timer = setInterval(() => {
+        start += step;
+        if (start >= target) { start = target; clearInterval(timer); }
+        el.textContent = Math.floor(start).toLocaleString() + suffix;
+      }, 16);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCount(document.getElementById('stat1'), 24381, '');
+          animateCount(document.getElementById('stat2'), 187340, '');
+          animateCount(document.getElementById('stat3'), 1247, '×');
+          animateCount(document.getElementById('stat4'), 9400000, '$');
+          statsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    const statsSection = document.querySelector('#stat1')?.closest('section');
+    if (statsSection) statsObserver.observe(statsSection);
+
+    /* ============================================================
+       SIGNAL GENERATOR
+    ============================================================ */
+    const signalTemplates = [
+      { label: 'LOW-RISK WINDOW', mult: '1.5×–2.0×', confidence: 87, color: '#00ff88', desc: 'Statistical clustering suggests above-average probability for ×1.5–×2 range in next 3 rounds.' },
+      { label: 'MID-RANGE TARGET', mult: '3.0×–5.0×', confidence: 61, color: '#ffd700', desc: 'Pattern analysis detects a potential mid-range multiplier sequence developing.' },
+      { label: 'HIGH VOLATILITY', mult: '10×–50×', confidence: 34, color: '#ff2d78', desc: 'High-volatility signal detected. Low probability, high reward. Moon-shot position only.' },
+      { label: 'CAUTION ZONE', mult: '<1.3×', confidence: 72, color: '#ff8800', desc: 'Cold streak pattern detected. Consider reducing bet size or skipping next 2 rounds.' },
+      { label: 'MOON SIGNAL', mult: '50×+', confidence: 12, color: '#b400ff', desc: 'Rare ultra-high multiplier statistical window. Allocate minimal stake only.' },
+      { label: 'STABLE RUN', mult: '2.0×–4.0×', confidence: 78, color: '#00f0ff', desc: 'Consistent round history suggests stable multiplier range. Good for dual-bet strategy.' },
+    ];
+
+    function generateSignals() {
+      const grid = document.getElementById('signalGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const selected = [...signalTemplates].sort(() => Math.random() - 0.5).slice(0, 4);
+      selected.forEach((s, i) => {
+        const conf = s.confidence + Math.floor((Math.random() - 0.5) * 10);
+        const card = document.createElement('div');
+        card.className = 'signal-card glass';
+        card.style.cssText = `border-color:rgba(255,255,255,0.08);animation-delay:${i*0.1}s;`;
+        card.innerHTML = `
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <div class="live-pulse-dot" style="background:${s.color};box-shadow:0 0 8px ${s.color};"></div>
+              <span style="font-family:'Orbitron',sans-serif;font-size:0.58rem;letter-spacing:0.12em;color:${s.color};">${s.label}</span>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#e8e8f0;letter-spacing:0.05em;margin-bottom:6px;">${s.mult}</div>
+            <p style="font-size:0.78rem;color:rgba(232,232,240,0.5);line-height:1.5;">${s.desc}</p>
+            <div style="margin-top:10px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span style="font-size:0.68rem;color:rgba(232,232,240,0.4);font-family:'Orbitron',sans-serif;letter-spacing:0.08em;">CONFIDENCE</span>
+                <span style="font-size:0.68rem;color:${s.color};font-family:'Orbitron',sans-serif;">${conf}%</span>
+              </div>
+              <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;">
+                <div class="signal-bar" style="height:4px;width:0%;background:${s.color};border-radius:2px;transition:width 1s ease ${i*0.15}s;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="sig-strength" style="margin-left:1.2rem;" aria-hidden="true">
+            <div class="sig-bar" style="background:${s.color};"></div>
+            <div class="sig-bar" style="background:${s.color};"></div>
+            <div class="sig-bar" style="background:${s.color};"></div>
+            <div class="sig-bar" style="background:${s.color};"></div>
+          </div>
+        `;
+        grid.appendChild(card);
+        // animate bar after DOM paint
+        setTimeout(() => {
+          const bar = card.querySelector('.signal-bar');
+          if (bar) bar.style.width = conf + '%';
+        }, 100);
+      });
+    }
+    generateSignals();
+
+    /* ============================================================
+       FAQ ACCORDION
+    ============================================================ */
+    const faqs = [
+      { q: 'What is the Rocket Queen game?', a: 'Rocket Queen is a provably fair crash-style game where players place bets and must cash out before the rocket crashes. Multipliers can reach 1000x or higher, combining skill, timing, and risk management.' },
+      { q: 'Is Rocket Queen provably fair?', a: 'Yes. Rocket Queen uses a cryptographic provably fair algorithm. Every round\'s crash point is determined before the round begins using a hash chain, allowing every player to independently verify outcomes.' },
+      { q: 'What is the best strategy for Rocket Queen?', a: 'The most consistent approach combines a fixed low multiplier target (1.5×–2×) for steady gains with occasional high-risk bets on larger multipliers. Always set an auto cash-out to remove emotion from the equation.' },
+      { q: 'What is the maximum multiplier in Rocket Queen?', a: 'There is no hard cap. Multipliers theoretically reach into the thousands, though the probability decreases sharply as the multiplier rises. The highest recorded multiplier exceeds ×10,000.' },
+      { q: 'Can I use signals to predict Rocket Queen outcomes?', a: 'Signals are pattern-based analytical tools that identify statistical trends in recent round data. They do not guarantee outcomes — all rounds are provably fair and random — but can inform smarter bet sizing decisions.' },
+      { q: 'What devices support Rocket Queen?', a: 'Rocket Queen runs fully in your browser on any device — desktop, mobile, or tablet. It is optimized for iOS and Android with touch-first controls and mobile-native UI.' },
+    ];
+
+    const faqContainer = document.getElementById('faqContainer');
+    faqs.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'faq-item glass';
+      div.style.cssText = `border-color:rgba(255,255,255,0.07);`;
+      div.innerHTML = `
+        <button class="faq-question" onclick="toggleFaq(${i})" aria-expanded="false" aria-controls="faq-ans-${i}">
+          <span>${item.q}</span>
+          <div class="faq-icon" id="faq-icon-${i}">+</div>
+        </button>
+        <div class="faq-answer" id="faq-ans-${i}" role="region">${item.a}</div>
+      `;
+      faqContainer.appendChild(div);
+    });
+
+    function toggleFaq(i) {
+      const ans = document.getElementById(`faq-ans-${i}`);
+      const icon = document.getElementById(`faq-icon-${i}`);
+      const btn = ans.previousElementSibling;
+      const isOpen = ans.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-answer').forEach(el => el.classList.remove('open'));
+      document.querySelectorAll('.faq-icon').forEach(el => { el.classList.remove('open'); el.textContent = '+'; });
+      document.querySelectorAll('.faq-question').forEach(el => el.setAttribute('aria-expanded','false'));
+      // Open clicked (if was closed)
+      if (!isOpen) {
+        ans.classList.add('open');
+        icon.classList.add('open');
+        icon.textContent = '+';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+    function openModal(type) {
+      const modal = document.getElementById('modal');
+      const title = document.getElementById('modalTitle');
+      const subtitle = document.getElementById('modalSubtitle');
+      const btn = document.getElementById('modalBtn');
+      if (type === 'login') {
+        title.textContent = 'WELCOME BACK';
+        subtitle.textContent = 'Login to your Premier Gaming Club account';
+        btn.textContent = 'LOGIN';
+      } else {
+        title.textContent = 'REGISTER';
+        subtitle.textContent = 'Join the Premier Gaming Club today';
+        btn.textContent = 'CREATE ACCOUNT';
+      }
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (!e || e.target === document.getElementById('modal') || !e) {
+        document.getElementById('modal').style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ============================================================
+       BOTTOM NAV
+    ============================================================ */
+    function activateBottomNav(btn, hash) {
+      document.querySelectorAll('.bottom-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = document.querySelector(hash);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ============================================================
+       REFRESH SIGNALS AUTO EVERY 45s
+    ============================================================ */
+    setInterval(generateSignals, 45000);
+  </script>
+
+</body>
+</html>
